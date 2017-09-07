@@ -12,13 +12,13 @@ class HomePresentation extends React.Component<any, any> {
     }
 
     handleAdd = () => {
-        const { firebase } = this.props;
-        firebase.push('/todos', { text: this.newTodo.value, done: false })
+        const {firebase} = this.props;
+        firebase.push('/todos', {text: this.newTodo.value, done: false})
         this.newTodo.value = ''
     };
 
-    render () {
-        const { todos } = this.props;
+    render() {
+        const {todos} = this.props;
 
         console.log('todos;', todos);
 
@@ -27,7 +27,7 @@ class HomePresentation extends React.Component<any, any> {
             : (isEmpty(todos))
                 ? 'Todo list is empty'
                 : Object.keys(todos).map((key) => (
-                    <TodoItem key={key} id={key} todo={todos[key]} />
+                    <TodoItem key={key} id={key} todo={todos[key]}/>
                 ));
         return (
             <div className='App'>
@@ -46,7 +46,9 @@ class HomePresentation extends React.Component<any, any> {
                     <h4>Todos List</h4>
                     {todosList}
                     <h4>New Todo</h4>
-                    <input type='text' ref={(input: HTMLInputElement) => {this.newTodo = input}} />
+                    <input type='text' ref={(input: HTMLInputElement) => {
+                        this.newTodo = input
+                    }}/>
                     <button onClick={this.handleAdd}>
                         Add
                     </button>
@@ -58,7 +60,7 @@ class HomePresentation extends React.Component<any, any> {
 
 const wrappedHome = firebaseConnect(['todos'])(HomePresentation);
 export const Home = connect(
-    ({ firebase: { data: { todos } } }) => ({
+    ({firebase: {data: {todos}}}) => ({
         todos,
     })
 )(wrappedHome);
